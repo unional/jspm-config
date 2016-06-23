@@ -1,0 +1,27 @@
+{
+  "atom": {
+    "rewriteTsconfig": false
+  },
+  "buildOnSave": false,
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "newLine": "LF",
+    "paths": {
+      "jspm-config": [
+        "src/"
+      ]
+    },
+    "target": "es5"
+  },
+  "exclude": [
+    "coverage",
+    "dist",
+    "node_modules"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "jspm": {
+    "name": "app",
+    "main": "app.js",
+    "directories": {
+      "baseURL": "www",
+      "packages": "www/cust_jspm_packages"
+    },
+    "configFiles": {
+      "jspm": "jspm.config.js",
+      "jspm:dev": "jspm.dev.js",
+      "jspm:browser": "jspm.browser.js",
+      "jspm:node": "jspm.node.js"
+    }
+  }
+}
