@@ -17,10 +17,10 @@ export interface JspmPackageJson {
   main: string;
   directories: { baseURL: string, packages: string };
   configFiles: ConfigFiles;
-  dependencies: { [index: string]: string };
-  peerDependencies: { [index: string]: string };
-  devDependencie: { [index: string]: string };
-  overrides: { [index: string]: any };
+  dependencies?: { [index: string]: string };
+  peerDependencies?: { [index: string]: string };
+  devDependencie?: { [index: string]: string };
+  overrides?: { [index: string]: any };
 }
 
 /**
