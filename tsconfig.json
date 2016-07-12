@@ -6,17 +6,16 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": ".",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "declaration": true,
+    "inlineSources": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "newLine": "LF",
-    "paths": {
-      "jspm-config": [
-        "src/"
-      ]
-    },
+    "removeComments": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "sourceMap": true,
     "target": "es5"
   },
   "exclude": [

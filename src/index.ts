@@ -7,9 +7,9 @@ import pick = require('object.pick');
 import { Options } from './interfaces';
 import { readProjectConfig } from './project';
 
-export default function resolve(options: Options = { cwd: __dirname }) {
-    return readProjectConfig(options)
+export function resolve(options: Options) {
+  return readProjectConfig(options)
     .then((config) => {
-
+      console.log(config);
     });
 }
