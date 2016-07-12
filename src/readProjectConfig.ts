@@ -27,18 +27,18 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
     });
 }
 
-export function readDependenciesJson(packagesPath: string, options: Options): Promise<DependenciesJson> {
+function readDependenciesJson(packagesPath: string, options: Options): Promise<DependenciesJson> {
   return readJson(path.join(options.cwd, packagesPath, '.dependencies.json'));
 }
 
-export function readJspmPackageJson(options: Options): Promise<JspmPackageJson> {
+function readJspmPackageJson(options: Options): Promise<JspmPackageJson> {
   return readJson(path.join(options.cwd, 'package.json'))
     .then(pjson => {
       return extractJspmPackageJson(pjson);
     });
 }
 
-export function readJspmConfigs(baseURL: string, configFiles: ConfigFiles, options: Options): Configs {
+function readJspmConfigs(baseURL: string, configFiles: ConfigFiles, options: Options): Configs {
   let g: any = global;
   let sys = g.System;
   let sysjs = g.SystemJS;
@@ -87,7 +87,7 @@ export function readJspmConfigs(baseURL: string, configFiles: ConfigFiles, optio
 }
 
 
-export function extractJspmPackageJson(packageJson: any): JspmPackageJson {
+function extractJspmPackageJson(packageJson: any): JspmPackageJson {
   return extend(
     {
       directories: {
