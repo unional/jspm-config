@@ -1,8 +1,11 @@
-import fixture from 'blue-tape-fixture';
+import ava from 'ava';
+import fixture from 'ava-fixture';
 
 import { resolve } from './index';
 
-const ftest = fixture('fixtures/cases');
+const ftest = fixture(ava, '../fixtures/cases');
 ftest('jspm resolve()', '0.17-custom', (t, cwd) => {
-  return resolve({ cwd });
+  return resolve({ cwd }).then(() => {
+    t.pass('it passed');
+  });
 });

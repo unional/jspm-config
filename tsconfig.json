@@ -16,11 +16,6 @@
     "rootDir": "src",
     "outDir": "dist",
     "sourceMap": true,
-    "target": "es5"
-  },
-  "exclude": [
-    "coverage",
-    "dist",
-    "node_modules"
-  ]
+    "target": "es2015"
+  }
 }

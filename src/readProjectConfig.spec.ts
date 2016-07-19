@@ -1,8 +1,9 @@
-import fixture from 'blue-tape-fixture';
+import ava from 'ava';
+import fixture from 'ava-fixture';
 
 import { readProjectConfig, JspmProjectInfo } from './index';
 
-const ftest = fixture('fixtures/cases');
+const ftest = fixture(ava, '../fixtures/cases');
 
 ftest('readProjectConfig()', '0.17-custom', (t, cwd) => {
   return readProjectConfig({ cwd })

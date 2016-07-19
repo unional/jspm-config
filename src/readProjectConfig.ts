@@ -15,12 +15,11 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
           readJspmConfigs(jspmPackageJson.directories.baseURL, jspmPackageJson.configFiles, options),
           readDependenciesJson(jspmPackageJson.directories.packages, options)
         ])
-        .then(([jspmConfigs, dependenciesJson]) => {
-
+        .then((results) => {
           return {
             jspmPackageJson,
-            jspmConfigs,
-            dependenciesJson
+            jspmConfigs: results[0],
+            dependenciesJson: results[1]
           };
 
         });
