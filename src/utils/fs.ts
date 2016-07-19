@@ -26,7 +26,7 @@ export function parseJson(contents: string, path: string, allowEmpty: boolean): 
 export function readJson(path: string, allowEmpty?: boolean): Promise<any> {
   return readFile(path, 'utf8')
     .then(stripBom)
-    .then(contents => parseJson(contents, path, allowEmpty))
+    .then(contents => parseJson(contents, path, allowEmpty));
 }
 
 export const readFile: ReadFileOp = throat(10, thenify<string, string, string>(fs.readFile));

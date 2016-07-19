@@ -33,7 +33,7 @@
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ts-node node_modules/blue-tape/bin/blue-tape \"src/**/*.spec.ts\" | tap-spec",
     "watch": "onchange -w \"**/*.ts\" -i -e \"dist/**\" -- npm run test+lint",
-    "verify": "npm run build && npm run test+lint",
+    "verify": "npm run build && npm run -s test+lint",
     "build+test": "npm run build && npm test",
     "test+lint": "npm test && npm run lint",
     "preversion": "npm run verify",

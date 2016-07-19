@@ -24,9 +24,9 @@ ftest('readProjectConfig()', '0.17-custom', (t, cwd) => {
         },
         jspmConfigs: {
           jspm: { packageConfigPaths: [], map: {}, packages: {} },
-          browser: { baseURL: '/', paths: [Object] },
+          browser: { baseURL: '/', paths: { 'app/': 'src/' } },
           dev: {},
-          node: { paths: [Object] }
+          node: { paths: { 'app/': 'src/'} }
         },
         dependenciesJson: {}
       } as JspmProjectInfo, 'should work with ...');
