@@ -24,20 +24,20 @@
     "tap-spec": "^4.1.1",
     "ts-node": "^0.9.3",
     "tslint": "^3.13.0",
-    "tslint-config-unional": "^0.3.0",
-    "typescript": "^2.0.0-dev.20160711",
+    "tslint-config-unional": "^0.3.1",
+    "typescript": "^2.0.0",
     "typings": "^1.3.1"
   },
   "scripts": {
-    "build": "echo building... && rimraf dist && tsc -d",
-    "lint": "echo linting... && tslint \"src/**/*.ts\"",
-    "test": "echo testing... && ts-node node_modules/blue-tape/bin/blue-tape \"src/**/*.spec.ts\" | tap-spec",
-    "watch": "onchange -w \"**/*.ts\" -i -e \"dist/**\" -- npm -s run test",
-    "verify": "npm run build && npm -s run lint+test",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "lint": "tslint \"src/**/*.ts\"",
+    "test": "ts-node node_modules/blue-tape/bin/blue-tape \"src/**/*.spec.ts\" | tap-spec",
+    "watch": "onchange -w \"**/*.ts\" -i -e \"dist/**\" -- npm run test+lint",
+    "verify": "npm run build && npm run -s test+lint",
     "build+test": "npm run build && npm test",
-    "lint+test": "npm run lint && npm test",
+    "test+lint": "npm test && npm run lint",
     "preversion": "npm run verify",
-    "prepublish": "typings install"
+    "prepublish": "typings install && npm run build"
   },
   "repository": {
     "type": "git",
