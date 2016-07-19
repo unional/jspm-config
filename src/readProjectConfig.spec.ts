@@ -1,7 +1,7 @@
 import ava from 'ava';
 import fixture from 'ava-fixture';
 
-import { readProjectConfig, JspmProjectInfo } from './index';
+import { readProjectConfig } from './index';
 
 const ftest = fixture(ava, '../fixtures/cases');
 
@@ -30,6 +30,6 @@ ftest('readProjectConfig()', '0.17-custom', (t, cwd) => {
           node: { paths: { 'app/': 'src/'} }
         },
         dependenciesJson: {}
-      } as JspmProjectInfo, 'should work with ...');
+      }, 'should work with full custom configuration');
     });
 });
