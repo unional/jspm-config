@@ -1,11 +1,9 @@
-import { join } from 'path';
 import fixture from 'blue-tape-fixture';
 
 import { readProjectConfig, JspmProjectInfo } from './index';
 
+const ftest = fixture('fixtures/cases');
 
-const FIXTURES_DIR = join(__dirname, '_fixture_/cases');
-const ftest = fixture(FIXTURES_DIR);
 ftest('readProjectConfig()', '0.17-custom', (t, cwd) => {
   return readProjectConfig({ cwd })
     .then((projectInfo) => {
