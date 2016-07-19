@@ -1,14 +1,11 @@
 # jspm config
 
-
 ## Roadmap
 
 - [ ] `resolve()`
   - for `typings i jspm:<pkg>`
 - [ ] `discoverTypings()` or `configSystemJS()` or `configJspm()`
   - For <https://github.com/frankwallis/plugin-typescript/issues/102>
-
-
 
 ## Contribute
 

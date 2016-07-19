@@ -21,7 +21,6 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
             jspmConfigs: results[0],
             dependenciesJson: results[1]
           };
-
         });
     });
 }
