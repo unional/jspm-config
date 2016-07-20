@@ -22,11 +22,25 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
             dependenciesJson: results[1]
           };
         });
+    }, err => {
+      if (err.code === 'ENOENT') {
+        // package.json does not exist. Returns undefined.
+        return;
+      }
+
+      throw err;
     });
 }
 
 function readDependenciesJson(packagesPath: string, options: Options): Promise<DependenciesJson> {
-  return readJson(path.join(options.cwd, packagesPath, '.dependencies.json'));
+  return readJson(path.join(options.cwd, packagesPath, '.dependencies.json')).catch<DependenciesJson | void>(err => {
+    if (err.code === 'ENOENT') {
+      // <jspm_packages>/.dependencies.json does not exist. Returns undefined.
+      return;
+    }
+
+    throw err;
+  });
 }
 
 function readJspmPackageJson(options: Options): Promise<JspmPackageJson> {
