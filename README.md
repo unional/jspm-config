@@ -1,5 +1,7 @@
 # jspm config
 
+[![Build Status](https://travis-ci.org/unional/jspm-config.svg?branch=master)](https://travis-ci.org/unional/jspm-config)
+
 ## Roadmap
 
 - [ ] `resolve()`
