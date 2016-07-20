@@ -15,8 +15,8 @@ export interface DependenciesJson {
 export interface JspmPackageJson {
   name: string;
   main: string;
-  directories: { baseURL: string, packages: string };
-  configFiles: ConfigFiles;
+  directories?: { baseURL: string, packages: string };
+  configFiles?: ConfigFiles;
   dependencies?: { [index: string]: string };
   peerDependencies?: { [index: string]: string };
   devDependencie?: { [index: string]: string };

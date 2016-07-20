@@ -46,20 +46,10 @@ ftest('readProjectConfig()', 'non-jspm-empty', (t, casePath) => {
     .then((projectInfo) => {
       t.deepEqual(projectInfo, {
         jspmPackageJson: {
-          directories: {
-            baseURL: '.',
-            packages: 'jspm_packages'
-          },
-          configFiles: {
-            jspm: 'jspm.config.js',
-            'jspm:browser': 'jspm.browser.js',
-            'jspm:dev': 'jspm.dev.js',
-            'jspm:node': 'jspm.node.js'
-          },
           name: 'non-jspm',
           main: 'index.js'
         },
-        jspmConfigs: {},
+        jspmConfigs: undefined,
         dependenciesJson: undefined
       }, 'should work with non-jspm empty library');
     });
