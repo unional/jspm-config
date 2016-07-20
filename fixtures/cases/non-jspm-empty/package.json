@@ -1,0 +1,11 @@
+{
+  "name": "non-jspm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Unional <homawong@gmail.com> (http://github.com/unional)",
+  "license": "ISC"
+}
