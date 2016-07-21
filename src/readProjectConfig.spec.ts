@@ -5,7 +5,7 @@ import { readProjectConfig, ConfigError } from './index';
 
 const ftest = fixture(ava, '../fixtures/cases');
 
-ftest('readProjectConfig', '0.17-custom', (t, casePath) => {
+ftest('readProjectConfig', 'custom-config-empty', (t, casePath) => {
   return readProjectConfig({ cwd: casePath })
     .then(projectInfo => {
       t.deepEqual(projectInfo, {
