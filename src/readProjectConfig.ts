@@ -67,7 +67,7 @@ function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Co
 
   g.System = {
     config(conf: Object): any {
-      config = conf;
+      config = extend(config, conf);
     }
   };
   g.SystemJS = g.System;
@@ -77,6 +77,7 @@ function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Co
   let hasConfig = false;
   let filePath = path.resolve(options.cwd, baseURL, configFiles['jspm']);
   if (fs.existsSync(filePath)) {
+    config = {};
     require(filePath);
     hasConfig = true;
     configs.jspm = config;
@@ -85,6 +86,7 @@ function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Co
 
   filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:browser']);
   if (fs.existsSync(filePath)) {
+    config = {};
     require(filePath);
     hasConfig = true;
     configs.browser = config;
@@ -93,6 +95,7 @@ function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Co
 
   filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:dev']);
   if (fs.existsSync(filePath)) {
+    config = {};
     require(filePath);
     hasConfig = true;
     configs.dev = config;
@@ -101,6 +104,7 @@ function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Co
 
   filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:node']);
   if (fs.existsSync(filePath)) {
+    config = {};
     require(filePath);
     hasConfig = true;
     configs.node = config;

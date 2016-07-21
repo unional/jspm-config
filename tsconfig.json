@@ -17,5 +17,10 @@
     "outDir": "dist",
     "sourceMap": true,
     "target": "es2015"
-  }
+  },
+  "exclude": [
+    "fixtures",
+    "node_modules",
+    "jspm_packages"
+  ]
 }

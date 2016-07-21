@@ -49,3 +49,21 @@ export interface JspmProjectInfo {
   jspmConfigs: Configs;
   dependenciesJson: DependenciesJson;
 }
+
+export interface DependencyInfo {
+  paths: {
+    [prefix: string]: string;
+  };
+  map: {
+    [moduleName: string]: string;
+  };
+  packages: {
+      [versionedName: string]: {
+        map: {
+          [moduleName: string]: string;
+        }
+      };
+  };
+}
+
+

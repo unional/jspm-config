@@ -1,0 +1,16 @@
+{
+  "npm:make-error-cause@1.2.1": {
+    "deps": {
+      "make-error": "npm:make-error@^1.2.0"
+    },
+    "peerDeps": {}
+  },
+  "npm:make-error@1.2.0": {
+    "deps": {},
+    "peerDeps": {}
+  },
+  "npm:nop@1.0.0": {
+    "deps": {},
+    "peerDeps": {}
+  }
+}

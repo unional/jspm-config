@@ -1,0 +1,41 @@
+{
+  "main": "index.js",
+  "format": "cjs",
+  "meta": {
+    "*": {
+      "globals": {
+        "process": "process"
+      }
+    },
+    "*.json": {
+      "format": "json"
+    },
+    "async-shim.js": {
+      "globals": {
+        "Buffer": "buffer/global"
+      }
+    },
+    "browser.js": {
+      "globals": {
+        "Buffer": "buffer/global"
+      }
+    },
+    "index.js": {
+      "globals": {
+        "Buffer": "buffer/global"
+      }
+    },
+    "test/index.js": {
+      "globals": {
+        "Buffer": "buffer/global"
+      }
+    }
+  },
+  "map": {
+    "./index.js": {
+      "browser": "./browser.js"
+    },
+    "./test": "./test/index.js",
+    "./test/fixtures": "./test/fixtures.json"
+  }
+}
