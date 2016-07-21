@@ -50,20 +50,34 @@ export interface JspmProjectInfo {
   dependenciesJson: DependenciesJson;
 }
 
-export interface DependencyInfo {
-  paths: {
-    [prefix: string]: string;
-  };
-  map: {
-    [moduleName: string]: string;
-  };
-  packages: {
-      [versionedName: string]: {
-        map: {
-          [moduleName: string]: string;
-        }
-      };
+export interface PathMap {
+  [prefix: string]: string;
+}
+
+/**
+ * Module name maps to package name.
+ */
+export interface ModuleMap {
+  [moduleName: string]: string;
+}
+
+export interface PackageMap {
+  [versionedName: string]: {
+    map: ModuleMap;
   };
 }
 
+export interface DependencyInfo {
+  paths: PathMap;
+  map: ModuleMap;
+  packages: PackageMap;
+}
 
+export interface DependencyTree {
+  [moduleName: string]: DependencyNode;
+}
+
+export interface DependencyNode {
+  path: string;
+  map?: DependencyTree;
+};
