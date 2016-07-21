@@ -1,7 +1,7 @@
 import ava from 'ava';
 import fixture from 'ava-fixture';
 
-import { readProjectConfig } from './index';
+import { readProjectConfig, ConfigError } from './index';
 
 const ftest = fixture(ava, '../fixtures/cases');
 
@@ -43,14 +43,8 @@ ftest('readyProjectConfig()', 'empty', (t, casePath) => {
 
 ftest('readProjectConfig()', 'non-jspm-empty', (t, casePath) => {
   return readProjectConfig({ cwd: casePath })
-    .then((projectInfo) => {
-      t.deepEqual(projectInfo, {
-        jspmPackageJson: {
-          name: 'non-jspm',
-          main: 'index.js'
-        },
-        jspmConfigs: undefined,
-        dependenciesJson: undefined
-      }, 'should work with non-jspm empty library');
+    .catch(err => {
+      t.true(err instanceof ConfigError, 'error is instance of ConfigError');
+      t.is(err.message, 'This is not a jspm project', 'error with not jspm project message');
     });
 });

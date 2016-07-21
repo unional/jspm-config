@@ -7,6 +7,7 @@ import pick = require('object.pick');
 import { readJson } from './utils/fs';
 import { JspmPackageJson, ConfigFiles, Configs, Options, DependenciesJson, JspmProjectInfo } from './interfaces';
 import { JSPM_PACKAGE_JSON_DEFAULT } from './constants';
+import { ConfigError } from './error';
 
 export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
   return readJspmPackageJson(options)
@@ -128,6 +129,6 @@ function extractJspmPackageJson(packageJson: any): JspmPackageJson {
     return packageJson.jspm;
   }
   else {
-    throw new Error('This is not a jspm project');
+    throw new ConfigError('This is not a jspm project');
   }
 }
