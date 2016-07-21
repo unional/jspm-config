@@ -1,0 +1,7 @@
+{
+  "jspm": {
+    "dependencies": {
+      "make-error": "npm:make-error@^1.2.0"
+    }
+  }
+}
