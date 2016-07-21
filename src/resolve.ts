@@ -12,7 +12,6 @@ export function resolve(options: Options): Promise<DependencyInfo> {
         projectInfo.jspmConfigs.dev,
         projectInfo.jspmConfigs.jspm,
         projectInfo.jspmConfigs.node);
-      console.log(projectInfo.jspmConfigs.jspm);
       return {
         paths: config.paths,
         map: config.map,
