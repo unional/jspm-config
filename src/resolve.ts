@@ -15,6 +15,23 @@ export function resolve(options: Options): Promise<DependencyTree> {
     });
 }
 
+export function resolveOne(moduleName: string, options: Options): Promise<DependencyTree> {
+  return readProjectConfig(options)
+    .then(projectInfo => {
+      const dependencyInfo = getDependencyInfo(projectInfo);
+      const packageName = dependencyInfo.map[moduleName];
+      if (packageName) {
+        return readMap(
+          { [moduleName]: packageName },
+          dependencyInfo.paths,
+          dependencyInfo.packages);
+      }
+      else {
+        return {};
+      }
+    });
+}
+
 function readMap(map: ModuleMap, paths: PathMap, packages: PackageMap) {
   const result: DependencyTree = {};
   for (let moduleName in map) {
