@@ -5,7 +5,7 @@ import extend = require('xtend');
 import pick = require('object.pick');
 
 import { readJson } from './utils/fs';
-import { JspmPackageJson, ConfigFiles, Configs, Options, DependenciesJson, JspmProjectInfo } from './interfaces';
+import { JspmPackageJson, Configs, Options, DependenciesJson, JspmProjectInfo } from './interfaces';
 import { JSPM_PACKAGE_JSON_DEFAULT } from './constants';
 import { ConfigError } from './error';
 
@@ -111,7 +111,6 @@ function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Co
   g.SystemJS = sysjs;
   return hasConfig ? configs : undefined;
 }
-
 
 function extractJspmPackageJson(packageJson: any): JspmPackageJson {
   if (packageJson.jspm === true) {
