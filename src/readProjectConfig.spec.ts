@@ -5,9 +5,9 @@ import { readProjectConfig, ConfigError } from './index';
 
 const ftest = fixture(ava, '../fixtures/cases');
 
-ftest('readProjectConfig()', '0.17-custom', (t, casePath) => {
+ftest('readProjectConfig', '0.17-custom', (t, casePath) => {
   return readProjectConfig({ cwd: casePath })
-    .then((projectInfo) => {
+    .then(projectInfo => {
       t.deepEqual(projectInfo, {
         jspmPackageJson: {
           directories: {
@@ -25,8 +25,12 @@ ftest('readProjectConfig()', '0.17-custom', (t, casePath) => {
         },
         jspmConfigs: {
           jspm: { packageConfigPaths: [], map: {}, packages: {} },
-          browser: { baseURL: '/', paths: { 'app/': 'src/' } },
-          dev: {},
+          browser: {
+            baseURL: '/',
+            paths: { 'app/': 'src/' }
+          },
+          dev: {
+          },
           node: { paths: { 'app/': 'src/' } }
         },
         dependenciesJson: {}
@@ -34,17 +38,18 @@ ftest('readProjectConfig()', '0.17-custom', (t, casePath) => {
     });
 });
 
-ftest('readyProjectConfig()', 'empty', (t, casePath) => {
+ftest('readyProjectConfig', 'empty', (t, casePath) => {
   return readProjectConfig({ cwd: casePath })
-    .then((projectInfo) => {
+    .then(projectInfo => {
       t.deepEqual(projectInfo, undefined, 'should return undefined when the folder is empty');
     });
 });
 
-ftest('readProjectConfig()', 'non-jspm-empty', (t, casePath) => {
+ftest('readProjectConfig', 'non-jspm-empty', (t, casePath) => {
   return readProjectConfig({ cwd: casePath })
     .catch(err => {
       t.true(err instanceof ConfigError, 'error is instance of ConfigError');
       t.is(err.message, 'This is not a jspm project', 'error with not jspm project message');
     });
 });
+

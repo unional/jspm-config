@@ -1,0 +1,8 @@
+{
+  "jspm": {
+    "dependencies": {
+      "make-error-cause": "npm:make-error-cause@^1.2.1",
+      "nop": "npm:nop@^1.0.0"
+    }
+  }
+}
