@@ -1,21 +1,52 @@
 import Promise = require('any-promise');
 import extend = require('xtend');
 
-import { Options, DependencyInfo } from './interfaces';
+import { Options, DependencyTree, DependencyNode, DependencyInfo, PackageMap, PathMap, ModuleMap, JspmProjectInfo } from './interfaces';
 import { readProjectConfig } from './readProjectConfig';
 
-export function resolve(options: Options): Promise<DependencyInfo> {
+export function resolve(options: Options): Promise<DependencyTree> {
   return readProjectConfig(options)
     .then(projectInfo => {
-      const config = extend(
-        projectInfo.jspmConfigs.browser,
-        projectInfo.jspmConfigs.dev,
-        projectInfo.jspmConfigs.jspm,
-        projectInfo.jspmConfigs.node);
-      return {
-        paths: config.paths,
-        map: config.map,
-        packages: config.packages
-      };
+      const dependencyInfo = getDependencyInfo(projectInfo);
+      return readMap(
+        dependencyInfo.map,
+        dependencyInfo.paths,
+        dependencyInfo.packages);
     });
+}
+
+function readMap(map: ModuleMap, paths: PathMap, packages: PackageMap) {
+  const result: DependencyTree = {};
+  for (let moduleName in map) {
+    const node: DependencyNode = {} as any;
+    const packageName = map[moduleName];
+    node.path = getModulePath(packageName, paths);
+    const pkg = packages[packageName];
+    if (pkg && pkg.map) {
+      node.map = readMap(pkg.map, paths, packages);
+    }
+    result[moduleName] = node;
+  }
+
+  return result;
+}
+function getModulePath(packageName: string, paths: PathMap) {
+  for (let prefix in paths) {
+    if (packageName.indexOf(prefix) === 0) {
+      return packageName.replace(prefix, paths[prefix]);
+    }
+  }
+  return packageName;
+}
+function getDependencyInfo(projectInfo: JspmProjectInfo): DependencyInfo {
+  const config = extend(
+    projectInfo.jspmConfigs.browser,
+    projectInfo.jspmConfigs.dev,
+    projectInfo.jspmConfigs.jspm,
+    projectInfo.jspmConfigs.node);
+  return {
+    paths: config.paths,
+    map: config.map,
+    packages: config.packages
+  };
 }

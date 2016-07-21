@@ -1,7 +1,7 @@
 import ava from 'ava';
 import fixture from 'ava-fixture';
 
-import { resolve } from './index';
+import { resolve, DependencyTree } from './index';
 
 const ftest = fixture(ava, '../fixtures/cases');
 ftest('resolve', '0.17-custom', (t, casePath) => {
@@ -13,21 +13,20 @@ ftest('resolve', '0.17-custom', (t, casePath) => {
 ftest('resolve', '0.17-base', (t, casePath) => {
   return resolve({ cwd: casePath })
     .then(actual => {
-      t.deepEqual(actual, {
-        paths: {
-          'npm:': 'jspm_packages/npm/'
-        },
-        map: {
-          'make-error-cause': 'npm:make-error-cause@1.2.1',
-          'nop': 'npm:nop@1.0.0'
-        },
-        packages: {
-          'npm:make-error-cause@1.2.1': {
-            map: {
-              'make-error': 'npm:make-error@1.2.0'
+      const expected: DependencyTree = {
+        'make-error-cause': {
+          path: 'jspm_packages/npm/make-error-cause@1.2.1',
+          map: {
+            'make-error': {
+              path: 'jspm_packages/npm/make-error@1.2.0'
             }
           }
+        },
+        'nop': {
+          path: 'jspm_packages/npm/nop@1.0.0'
         }
-      }, '0.17-base resolve() works');
+      };
+
+      t.deepEqual(actual, expected, '0.17-base resolve() works');
     });
 });
