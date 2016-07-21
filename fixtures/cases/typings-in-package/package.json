@@ -1,0 +1,7 @@
+{
+  "jspm": {
+    "dependencies": {
+      "lower-case": "npm:lower-case@^1.1.3"
+    }
+  }
+}
