@@ -4,7 +4,7 @@ import extend = require('xtend');
 import { Options, DependencyTree, DependencyNode, DependencyInfo, PackageMap, PathMap, ModuleMap, JspmProjectInfo } from './interfaces';
 import { readProjectConfig } from './readProjectConfig';
 
-export function resolve(options: Options): Promise<DependencyTree> {
+export function resolveAll(options: Options): Promise<DependencyTree> {
   return readProjectConfig(options)
     .then(projectInfo => {
       const dependencyInfo = getDependencyInfo(projectInfo);
@@ -15,7 +15,7 @@ export function resolve(options: Options): Promise<DependencyTree> {
     });
 }
 
-export function resolveOne(moduleName: string, options: Options): Promise<DependencyTree> {
+export function resolve(moduleName: string, options: Options): Promise<DependencyTree> {
   return readProjectConfig(options)
     .then(projectInfo => {
       const dependencyInfo = getDependencyInfo(projectInfo);
