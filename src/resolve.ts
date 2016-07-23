@@ -1,13 +1,16 @@
 import Promise = require('any-promise')
 import extend = require('xtend')
 
-import { Options, DependencyTree, DependencyNode, DependencyInfo, PackageMap, PathMap, ModuleMap, JspmProjectInfo } from './interfaces'
-import { readProjectConfig } from './readProjectConfig'
+import { Options, DependencyTree, DependencyNode, DependencyInfo, PackageMap, PathMap, ModuleMap, Configs } from './interfaces'
+import { readJspmPackageJson, readJspmConfigs } from './readProjectConfig'
 
 export function resolveAll(options: Options): Promise<DependencyTree> {
-  return readProjectConfig(options)
-    .then(projectInfo => {
-      const dependencyInfo = getDependencyInfo(projectInfo)
+  return readJspmPackageJson(options)
+    .then(pjson => {
+      return readJspmConfigs(pjson, options);
+    })
+    .then(configs => {
+      const dependencyInfo = getDependencyInfo(configs)
       return readMap(
         dependencyInfo.map,
         dependencyInfo.paths,
@@ -16,9 +19,12 @@ export function resolveAll(options: Options): Promise<DependencyTree> {
 }
 
 export function resolve(moduleName: string, options: Options): Promise<DependencyTree> {
-  return readProjectConfig(options)
-    .then(projectInfo => {
-      const dependencyInfo = getDependencyInfo(projectInfo)
+  return readJspmPackageJson(options)
+    .then(pjson => {
+      return readJspmConfigs(pjson, options);
+    })
+    .then(configs => {
+      const dependencyInfo = getDependencyInfo(configs)
       const packageName = dependencyInfo.map[moduleName]
       if (packageName) {
         return readMap(
@@ -55,12 +61,12 @@ function getModulePath(packageName: string, paths: PathMap) {
   }
   return packageName
 }
-function getDependencyInfo(projectInfo: JspmProjectInfo): DependencyInfo {
+function getDependencyInfo(jspmConfigs: Configs): DependencyInfo {
   const config = extend(
-    projectInfo.jspmConfigs.browser,
-    projectInfo.jspmConfigs.dev,
-    projectInfo.jspmConfigs.jspm,
-    projectInfo.jspmConfigs.node)
+    jspmConfigs.browser,
+    jspmConfigs.dev,
+    jspmConfigs.jspm,
+    jspmConfigs.node)
   return {
     paths: config.paths,
     map: config.map,

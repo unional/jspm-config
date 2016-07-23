@@ -35,7 +35,7 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
     })
 }
 
-function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options): Promise<DependenciesJson> {
+export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options): Promise<DependenciesJson> {
   const packages = jspmPackageJson.directories ?
     jspmPackageJson.directories.packages :
     JSPM_PACKAGE_JSON_DEFAULT.directories.packages
@@ -49,14 +49,14 @@ function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options
   })
 }
 
-function readJspmPackageJson(options: Options): Promise<JspmPackageJson> {
+export function readJspmPackageJson(options: Options): Promise<JspmPackageJson> {
   return readJson(path.join(options.cwd, 'package.json'))
     .then(pjson => {
       return extractJspmPackageJson(pjson)
     })
 }
 
-function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Configs {
+export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Configs {
   const baseURL = jspmPackageJson.directories ?
     jspmPackageJson.directories.baseURL :
     JSPM_PACKAGE_JSON_DEFAULT.directories.baseURL
