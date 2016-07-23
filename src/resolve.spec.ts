@@ -1,17 +1,17 @@
 import ava from 'ava'
 import fixture from 'ava-fixture'
 
-import { resolve, resolveOne, DependencyTree } from './index'
+import { resolve, resolveAll, DependencyTree } from './index'
 
 const ftest = fixture(ava, '../fixtures/cases')
-ftest('resolve', 'custom-config-empty', (t, casePath) => {
-  return resolve({ cwd: casePath }).then(() => {
+ftest('resolveAll', 'custom-config-empty', (t, casePath) => {
+  return resolveAll({ cwd: casePath }).then(() => {
     t.pass('it passed')
   })
 })
 
-ftest('resolve', 'base-case', (t, casePath) => {
-  return resolve({ cwd: casePath })
+ftest('resolveAll', 'base-case', (t, casePath) => {
+  return resolveAll({ cwd: casePath })
     .then(actual => {
       const expected: DependencyTree = {
         'make-error-cause': {
@@ -31,9 +31,9 @@ ftest('resolve', 'base-case', (t, casePath) => {
     })
 })
 
-ftest('resolveOne', 'base-case', (t, casePath) => {
+ftest('resolve', 'base-case', (t, casePath) => {
   return Promise.all([
-    resolveOne('make-error-cause', { cwd: casePath })
+    resolve('make-error-cause', { cwd: casePath })
       .then(actual => {
         const expected: DependencyTree = {
           'make-error-cause': {
@@ -48,7 +48,7 @@ ftest('resolveOne', 'base-case', (t, casePath) => {
 
         t.deepEqual(actual, expected, 'base-case resolveOne() works')
       }),
-    resolveOne('not-exist', { cwd: casePath })
+    resolve('not-exist', { cwd: casePath })
       .then(actual => {
         t.deepEqual(actual, {}, 'base-case resolveOne() for not-exist module returns {}')
       })
