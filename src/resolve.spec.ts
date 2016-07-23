@@ -1,14 +1,14 @@
-import ava from 'ava';
-import fixture from 'ava-fixture';
+import ava from 'ava'
+import fixture from 'ava-fixture'
 
-import { resolve, resolveAll, DependencyTree } from './index';
+import { resolve, resolveAll, DependencyTree } from './index'
 
-const ftest = fixture(ava, '../fixtures/cases');
+const ftest = fixture(ava, '../fixtures/cases')
 ftest('resolveAll', 'custom-config-empty', (t, casePath) => {
   return resolveAll({ cwd: casePath }).then(() => {
-    t.pass('it passed');
-  });
-});
+    t.pass('it passed')
+  })
+})
 
 ftest('resolveAll', 'base-case', (t, casePath) => {
   return resolveAll({ cwd: casePath })
@@ -25,11 +25,11 @@ ftest('resolveAll', 'base-case', (t, casePath) => {
         'nop': {
           path: 'jspm_packages/npm/nop@1.0.0'
         }
-      };
+      }
 
-      t.deepEqual(actual, expected, 'base-case resolve() works');
-    });
-});
+      t.deepEqual(actual, expected, 'base-case resolve() works')
+    })
+})
 
 ftest('resolve', 'base-case', (t, casePath) => {
   return Promise.all([
@@ -44,13 +44,13 @@ ftest('resolve', 'base-case', (t, casePath) => {
               }
             }
           }
-        };
+        }
 
-        t.deepEqual(actual, expected, 'base-case resolveOne() works');
+        t.deepEqual(actual, expected, 'base-case resolveOne() works')
       }),
     resolve('not-exist', { cwd: casePath })
       .then(actual => {
-        t.deepEqual(actual, {}, 'base-case resolveOne() for not-exist module returns {}');
+        t.deepEqual(actual, {}, 'base-case resolveOne() for not-exist module returns {}')
       })
-  ]);
-});
+  ])
+})

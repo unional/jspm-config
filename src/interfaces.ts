@@ -1,5 +1,5 @@
 export interface Options {
-  cwd: string;
+  cwd: string
 }
 
 /**
@@ -9,75 +9,75 @@ export interface DependenciesJson {
   [index: string]: {
     deps: { [index: string]: string },
     peerDeps: { [index: string]: string }
-  };
+  }
 }
 
 export interface JspmPackageJson {
-  name: string;
-  main: string;
-  directories?: { baseURL: string, packages: string };
-  configFiles?: ConfigFiles;
-  dependencies?: { [index: string]: string };
-  peerDependencies?: { [index: string]: string };
-  devDependencie?: { [index: string]: string };
-  overrides?: { [index: string]: any };
+  name: string
+  main: string
+  directories?: { baseURL: string, packages: string }
+  configFiles?: ConfigFiles
+  dependencies?: { [index: string]: string }
+  peerDependencies?: { [index: string]: string }
+  devDependencie?: { [index: string]: string }
+  overrides?: { [index: string]: any }
 }
 
 /**
  * Interface for the resolved JSPM config.
  */
 export interface JspmConfig {
-  getDependencyTree(moduleName: string): any;
+  getDependencyTree(moduleName: string): any
 }
 
 export interface ConfigFiles {
-  jspm: string;
-  'jspm:browser': string;
-  'jspm:dev': string;
-  'jspm:node': string;
+  jspm: string
+  'jspm:browser': string
+  'jspm:dev': string
+  'jspm:node': string
 }
 
 export interface Configs {
-  jspm?: any;
-  browser?: any;
-  dev?: any;
-  node?: any;
+  jspm?: any
+  browser?: any
+  dev?: any
+  node?: any
 }
 
 export interface JspmProjectInfo {
-  jspmPackageJson: JspmPackageJson;
-  jspmConfigs: Configs;
-  dependenciesJson: DependenciesJson;
+  jspmPackageJson: JspmPackageJson
+  jspmConfigs: Configs
+  dependenciesJson: DependenciesJson
 }
 
 export interface PathMap {
-  [prefix: string]: string;
+  [prefix: string]: string
 }
 
 /**
  * Module name maps to package name.
  */
 export interface ModuleMap {
-  [moduleName: string]: string;
+  [moduleName: string]: string
 }
 
 export interface PackageMap {
   [versionedName: string]: {
-    map: ModuleMap;
-  };
+    map: ModuleMap
+  }
 }
 
 export interface DependencyInfo {
-  paths: PathMap;
-  map: ModuleMap;
-  packages: PackageMap;
+  paths: PathMap
+  map: ModuleMap
+  packages: PackageMap
 }
 
 export interface DependencyTree {
-  [moduleName: string]: DependencyNode;
+  [moduleName: string]: DependencyNode
 }
 
 export interface DependencyNode {
-  path: string;
-  map?: DependencyTree;
-};
+  path: string
+  map?: DependencyTree
+}
