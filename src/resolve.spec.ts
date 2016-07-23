@@ -5,8 +5,8 @@ import { resolve, resolveAll, DependencyTree } from './index'
 
 const ftest = fixture(ava, '../fixtures/cases')
 ftest('resolveAll', 'custom-config-empty', (t, casePath) => {
-  return resolveAll({ cwd: casePath }).then(() => {
-    t.pass('it passed')
+  return resolveAll({ cwd: casePath }).then(actual => {
+    t.deepEqual(actual, {}, 'should returns {} as there are no dependencies')
   })
 })
 
