@@ -11,4 +11,4 @@ export const JSPM_PACKAGE_JSON_DEFAULT = {
     'jspm:dev': 'jspm.dev.js',
     'jspm:node': 'jspm.node.js'
   }
-};
+}
