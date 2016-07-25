@@ -73,11 +73,11 @@ export interface DependencyInfo {
   packages: PackageMap
 }
 
-export interface DependencyTree {
-  [moduleName: string]: DependencyNode
+export interface DependencyBranch {
+  [moduleName: string]: DependencyTree
 }
 
-export interface DependencyNode {
+export interface DependencyTree {
   path: string
-  map?: DependencyTree
+  map?: DependencyBranch
 }

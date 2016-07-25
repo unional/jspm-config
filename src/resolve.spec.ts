@@ -1,7 +1,7 @@
 import ava from 'ava'
 import fixture from 'ava-fixture'
 
-import { resolve, resolveAll, DependencyTree } from './index'
+import { resolve, resolveAll, DependencyBranch, DependencyTree } from './index'
 
 const ftest = fixture(ava, '../fixtures/cases')
 ftest('resolveAll', 'custom-config-empty', (t, casePath) => {
@@ -13,7 +13,7 @@ ftest('resolveAll', 'custom-config-empty', (t, casePath) => {
 ftest('resolveAll', 'base-case', (t, casePath) => {
   return resolveAll({ cwd: casePath })
     .then(actual => {
-      const expected: DependencyTree = {
+      const expected: DependencyBranch = {
         'make-error-cause': {
           path: 'jspm_packages/npm/make-error-cause@1.2.1',
           map: {
@@ -36,12 +36,10 @@ ftest('resolve', 'base-case', (t, casePath) => {
     resolve('make-error-cause', { cwd: casePath })
       .then(actual => {
         const expected: DependencyTree = {
-          'make-error-cause': {
-            path: 'jspm_packages/npm/make-error-cause@1.2.1',
-            map: {
-              'make-error': {
-                path: 'jspm_packages/npm/make-error@1.2.0'
-              }
+          path: 'jspm_packages/npm/make-error-cause@1.2.1',
+          map: {
+            'make-error': {
+              path: 'jspm_packages/npm/make-error@1.2.0'
             }
           }
         }

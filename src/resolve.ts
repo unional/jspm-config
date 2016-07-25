@@ -1,10 +1,10 @@
 import Promise = require('any-promise')
 import extend = require('xtend')
 
-import { Options, DependencyTree, DependencyNode, DependencyInfo, PackageMap, PathMap, ModuleMap, Configs } from './interfaces'
+import { Options, DependencyBranch, DependencyTree, DependencyInfo, PackageMap, PathMap, ModuleMap, Configs } from './interfaces'
 import { readJspmPackageJson, readJspmConfigs } from './readProjectConfig'
 
-export function resolveAll(options: Options): Promise<DependencyTree> {
+export function resolveAll(options: Options): Promise<DependencyBranch> {
   return readJspmPackageJson(options)
     .then(pjson => {
       return readJspmConfigs(pjson, options)
@@ -30,7 +30,7 @@ export function resolve(moduleName: string, options: Options): Promise<Dependenc
         return readMap(
           { [moduleName]: packageName },
           dependencyInfo.paths,
-          dependencyInfo.packages)
+          dependencyInfo.packages)[moduleName]
       }
       else {
         return {}
@@ -39,9 +39,9 @@ export function resolve(moduleName: string, options: Options): Promise<Dependenc
 }
 
 function readMap(map: ModuleMap, paths: PathMap, packages: PackageMap) {
-  const result: DependencyTree = {}
+  const result: DependencyBranch = {}
   for (let moduleName in map) {
-    const node: DependencyNode = {} as any
+    const node: DependencyTree = {} as any
     const packageName = map[moduleName]
     node.path = getModulePath(packageName, paths)
     const pkg = packages[packageName]
