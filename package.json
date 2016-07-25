@@ -27,7 +27,7 @@
     "onchange": "^2.5.0",
     "rimraf": "^2.5.3",
     "tap-spec": "^4.1.1",
-    "ts-node": "^0.9.3",
+    "ts-node": "^1.2.1",
     "tslint": "^3.13.0",
     "tslint-config-unional": "^0.4.3",
     "typescript": "^2.0.0",
