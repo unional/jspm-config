@@ -25,7 +25,7 @@ npm run watch
 
 [SystemJS Resolution Specification](https://github.com/systemjs/systemjs/blob/599d89cbe9f4fb39a39f6c52b619cbd1f1da6ffc/docs/resolution-algorithm.md#resolution-specification)
 
-[npm-image]: https://img.shields.io/npm/v/typings-core.svg?style=flat
-[npm-url]: https://npmjs.org/package/typings-core
+[npm-image]: https://img.shields.io/npm/v/jspm-config.svg?style=flat
+[npm-url]: https://npmjs.org/package/jspm-config
 [travis-image]: https://travis-ci.org/unional/jspm-config.svg?branch=master
 [travis-url]: https://travis-ci.org/unional/jspm-config
