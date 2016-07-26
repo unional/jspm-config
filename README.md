@@ -5,7 +5,7 @@
 
 ## Roadmap
 
-- [ ] `resolve()`
+- [x] `resolve()` and `resolveAll()`
   - for `typings i jspm:<pkg>`
 - [ ] `discoverTypings()` or `configSystemJS()` or `configJspm()`
   - For <https://github.com/frankwallis/plugin-typescript/issues/102>
