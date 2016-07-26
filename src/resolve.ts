@@ -1,21 +1,26 @@
 import Promise = require('any-promise')
 import extend = require('xtend')
 
-import { Options, DependencyBranch, DependencyTree, DependencyInfo, PackageMap, PathMap, ModuleMap, Configs } from './interfaces'
+import {
+  Options, DependencyBranch, DependencyTree, DependencyInfo, PackageMap, PathMap, ModuleMap, Configs,
+  JspmPackageJson
+} from './interfaces'
 import { readJspmPackageJson, readJspmConfigs } from './readProjectConfig'
 
 export function resolveAll(options: Options): Promise<DependencyBranch> {
   return readJspmPackageJson(options)
     .then(pjson => {
-      return readJspmConfigs(pjson, options)
+      return resolveByPackageJson(pjson, options)
     })
-    .then(configs => {
-      const dependencyInfo = getDependencyInfo(configs)
-      return readMap(
-        dependencyInfo.map,
-        dependencyInfo.paths,
-        dependencyInfo.packages)
-    })
+}
+
+export function resolveByPackageJson(pjson: JspmPackageJson, options: Options) {
+  const configs = readJspmConfigs(pjson, options)
+  const dependencyInfo = getDependencyInfo(configs)
+  return readMap(
+    dependencyInfo.map,
+    dependencyInfo.paths,
+    dependencyInfo.packages)
 }
 
 export function resolve(moduleName: string, options: Options): Promise<DependencyTree> {

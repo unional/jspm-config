@@ -12,9 +12,25 @@ export interface DependenciesJson {
   }
 }
 
+/**
+ * Browser field overrides like NPM.
+ */
+export type Browser = string | Overrides
+
+/**
+ * Override map for file lookups.
+ */
+export interface Overrides {
+  [dependency: string]: string
+}
+
 export interface JspmPackageJson {
   name: string
   main: string
+  version?: string,
+  typings?: string,
+  browser?: Browser,
+  browserTypings?: Browser,
   directories?: { baseURL: string, packages: string }
   configFiles?: ConfigFiles
   dependencies?: { [index: string]: string }

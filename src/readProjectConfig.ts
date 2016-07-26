@@ -121,19 +121,24 @@ export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Optio
 }
 
 function extractJspmPackageJson(packageJson: any): JspmPackageJson {
+  const result = pick(packageJson, [
+    'name',
+    'version',
+    'main',
+    'browser',
+    'typings',
+    'browserTypings',
+    'directories',
+    'configFiles',
+    'dependencies',
+    'peerDependencies',
+    'devDependencies'
+  ])
   if (packageJson.jspm === true) {
-    return pick(packageJson, [
-      'name',
-      'main',
-      'directories',
-      'configFiles',
-      'dependencies',
-      'peerDependencies',
-      'devDependencies'
-    ])
+    return result
   }
   else if (typeof packageJson.jspm === 'object') {
-    return packageJson.jspm
+    return extend(result, packageJson.jspm)
   }
   else {
     throw new ConfigError('This is not a jspm project')

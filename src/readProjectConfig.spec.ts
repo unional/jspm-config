@@ -22,8 +22,12 @@ ftest('readProjectConfig', 'custom-config-empty', (t, casePath) => {
               'jspm:browser': 'jspm.browser.js',
               'jspm:node': 'jspm.node.js'
             },
-            name: 'app',
-            main: 'app.js'
+            name: 'my-module',
+            main: 'app.js',
+            version: '0.1.2',
+            browser: 'browser info',
+            typings: 'dist/app.d.ts',
+            browserTypings: 'dist/browser/app.d.ts'
           },
           jspmConfigs: {
             jspm: { packageConfigPaths: [], map: {}, packages: {} },

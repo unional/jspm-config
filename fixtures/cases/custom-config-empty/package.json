@@ -1,6 +1,12 @@
 {
+  "name": "my-module",
+  "version": "0.1.2",
+  "browser": "browser info",
+  "main": "dist/app.js",
+  "typings": "dist/app.d.ts",
+  "browserTypings": "dist/browser/app.d.ts",
   "jspm": {
-    "name": "app",
+    "name": "my-module",
     "main": "app.js",
     "directories": {
       "baseURL": "www",
