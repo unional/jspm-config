@@ -1,5 +1,6 @@
 import { existsSync } from 'fs'
 import { fork, ChildProcess } from 'child_process'
+import Promise = require('any-promise')
 
 /**
  * Read jspm config in separate process.

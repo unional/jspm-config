@@ -1,5 +1,4 @@
 import path = require('path')
-import fs = require('fs')
 import Promise = require('any-promise')
 import extend = require('xtend')
 import pick = require('object.pick')

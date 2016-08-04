@@ -17,13 +17,13 @@ export function parseJson(contents: string, path: string, allowEmpty: boolean): 
     return {}
   }
 
-  return parse(contents, null, path)
+  return parse(contents, undefined, path)
 }
 
 /**
  * Read JSON from a path.
  */
-export function readJson(path: string, allowEmpty?: boolean): Promise<any> {
+export function readJson(path: string, allowEmpty: boolean = false): Promise<any> {
   return readFile(path, 'utf8')
     .then(stripBom)
     .then(contents => parseJson(contents, path, allowEmpty))
