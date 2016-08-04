@@ -1,5 +1,4 @@
 import path = require('path')
-import fs = require('fs')
 import Promise = require('any-promise')
 import extend = require('xtend')
 import pick = require('object.pick')
@@ -8,6 +7,7 @@ import { readJson } from './utils/fs'
 import { JspmPackageJson, Configs, Options, DependenciesJson, JspmProjectInfo } from './interfaces'
 import { JSPM_PACKAGE_JSON_DEFAULT } from './constants'
 import { ConfigError } from './error'
+import { ConfigReader } from './ConfigReader'
 
 export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
   return readJspmPackageJson(options)
@@ -56,7 +56,7 @@ export function readJspmPackageJson(options: Options): Promise<JspmPackageJson> 
     })
 }
 
-export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Configs {
+export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Promise<Configs> {
   const baseURL = jspmPackageJson.directories ?
     jspmPackageJson.directories.baseURL :
     JSPM_PACKAGE_JSON_DEFAULT.directories.baseURL
@@ -64,60 +64,56 @@ export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Optio
     JSPM_PACKAGE_JSON_DEFAULT.configFiles,
     jspmPackageJson.configFiles
   )
-  let g: any = global
-  let sys = g.System
-  let sysjs = g.SystemJS
-  let config: any
-
-  g.System = {
-    config(conf: Object): any {
-      config = extend(config, conf)
-    }
-  }
-  g.SystemJS = g.System
-
+  const { cwd } = options
   const configs: Configs = {}
-
+  const reader = new ConfigReader()
   let hasConfig = false
-  let filePath = path.resolve(options.cwd, baseURL, configFiles['jspm'])
-  if (fs.existsSync(filePath)) {
-    config = {}
-    require(filePath)
-    hasConfig = true
-    configs.jspm = config
-    delete require.cache[require.resolve(filePath)]
-  }
 
-  filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:browser'])
-  if (fs.existsSync(filePath)) {
-    config = {}
-    require(filePath)
-    hasConfig = true
-    configs.browser = config
-    delete require.cache[require.resolve(filePath)]
-  }
-
-  filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:dev'])
-  if (fs.existsSync(filePath)) {
-    config = {}
-    require(filePath)
-    hasConfig = true
-    configs.dev = config
-    delete require.cache[require.resolve(filePath)]
-  }
-
-  filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:node'])
-  if (fs.existsSync(filePath)) {
-    config = {}
-    require(filePath)
-    hasConfig = true
-    configs.node = config
-    delete require.cache[require.resolve(filePath)]
-  }
-
-  g.System = sys
-  g.SystemJS = sysjs
-  return hasConfig ? configs : undefined
+  return Promise.resolve()
+    .then(() => {
+      let filePath = path.resolve(cwd, baseURL, configFiles['jspm'])
+      return reader.read(filePath).then(config => {
+        if (config) {
+          configs.jspm = config
+          hasConfig = true
+        }
+      })
+    })
+    .then(() => {
+      let filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:browser'])
+      return reader.read(filePath).then(config => {
+        if (config) {
+          configs.browser = config
+          hasConfig = true
+        }
+      })
+    })
+    .then(() => {
+      let filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:dev'])
+      return reader.read(filePath).then(config => {
+        if (config) {
+          configs.dev = config
+          hasConfig = true
+        }
+      })
+    })
+    .then(() => {
+      let filePath = path.resolve(options.cwd, baseURL, configFiles['jspm:node'])
+      return reader.read(filePath).then(config => {
+        if (config) {
+          configs.node = config
+          hasConfig = true
+        }
+      })
+    })
+    .then(
+    () => {
+      reader.close()
+      return hasConfig ? configs : undefined
+    },
+    () => {
+      reader.close()
+    })
 }
 
 function extractJspmPackageJson(packageJson: any): JspmPackageJson {

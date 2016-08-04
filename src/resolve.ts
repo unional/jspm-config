@@ -14,13 +14,15 @@ export function resolveAll(options: Options): Promise<DependencyBranch> {
     })
 }
 
-export function resolveByPackageJson(pjson: JspmPackageJson, options: Options) {
-  const configs = readJspmConfigs(pjson, options)
-  const dependencyInfo = getDependencyInfo(configs)
-  return readMap(
-    dependencyInfo.map,
-    dependencyInfo.paths,
-    dependencyInfo.packages)
+export function resolveByPackageJson(pjson: JspmPackageJson, options: Options): Promise<DependencyBranch> {
+  return readJspmConfigs(pjson, options)
+    .then(configs => {
+      const dependencyInfo = getDependencyInfo(configs)
+      return readMap(
+        dependencyInfo.map,
+        dependencyInfo.paths,
+        dependencyInfo.packages)
+    })
 }
 
 export function resolve(moduleName: string, options: Options): Promise<DependencyTree> {
