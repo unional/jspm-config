@@ -13,5 +13,5 @@ process.on('message', (filePath: string) => {
   g.SystemJS = g.System
 
   require(filePath)
-  process.send(config)
+  ;(process as any).send(config)
 })
