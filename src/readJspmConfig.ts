@@ -13,5 +13,9 @@ process.on('message', (filePath: string) => {
   g.SystemJS = g.System
 
   require(filePath)
+
+  // Workaround "Object is possibly 'undefined'"" error
+  // `process.send` is defined only in child process
+  // There is no good way to indicate this is running under child process thus this method exists
   ;(process as any).send(config)
 })
