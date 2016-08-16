@@ -8,6 +8,9 @@
     "baseUrl": ".",
     "declaration": true,
     "inlineSources": true,
+    "lib": [
+      "es2015"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
