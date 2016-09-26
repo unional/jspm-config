@@ -1,6 +1,6 @@
 {
   "globalDevDependencies": {
-    "node": "registry:env/node#6.0.0+20160723033700"
+    "node": "registry:env/node#6.0.0+20160918225031"
   },
   "dependencies": {
     "graceful-fs": "registry:npm/graceful-fs#4.0.0+20160723033700",
