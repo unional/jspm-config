@@ -11,7 +11,7 @@ export class ConfigReader {
   private timer: NodeJS.Timer
 
   constructor() {
-    this.child = fork('./readJspmConfig.js')
+    this.child = fork(`${__dirname}/readJspmConfig`)
     this.startTimeBomb()
   }
 
