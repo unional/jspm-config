@@ -1,9 +1,9 @@
-import ava from 'ava'
+import test from 'ava'
 import fixture from 'ava-fixture'
 
-import { resolve, resolveAll, DependencyBranch, DependencyTree } from './index'
+import { resolve, resolveAll, DependencyBranch, DependencyTree, ModuleNotFoundError } from './index'
 
-const ftest = fixture(ava, '../fixtures/cases')
+const ftest = fixture(test, '../fixtures/cases')
 ftest('resolveAll', 'custom-config-empty', (t, casePath) => {
   return resolveAll({ cwd: casePath }).then(actual => {
     t.deepEqual(actual, {}, 'should returns {} as there are no dependencies')
@@ -31,9 +31,9 @@ ftest('resolveAll', 'base-case', (t, casePath) => {
     })
 })
 
-ftest('resolve', 'base-case', (t, casePath) => {
+ftest('resolve', 'base-case', (t, cwd) => {
   return Promise.all([
-    resolve('make-error-cause', { cwd: casePath })
+    resolve('make-error-cause', { cwd })
       .then(actual => {
         const expected: DependencyTree = {
           path: 'jspm_packages/npm/make-error-cause@1.2.1',
@@ -46,9 +46,6 @@ ftest('resolve', 'base-case', (t, casePath) => {
 
         t.deepEqual(actual, expected, 'base-case resolveOne() works')
       }),
-    resolve('not-exist', { cwd: casePath })
-      .then(actual => {
-        t.deepEqual(actual, {}, 'base-case resolveOne() for not-exist module returns {}')
-      })
+    t.throws(resolve('not-exist', { cwd }), ModuleNotFoundError, 'not-exist')
   ])
 })

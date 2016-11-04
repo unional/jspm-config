@@ -1,10 +1,10 @@
 import { resolve } from 'path'
-import ava from 'ava'
+import test from 'ava'
 import fixture from 'ava-fixture'
 
 import { ConfigReader } from './ConfigReader'
 
-const ftest = fixture(ava, '../fixtures/cases')
+const ftest = fixture(test, '../fixtures/cases')
 
 ftest('ConfigReader', 'quick-empty', (t, cwd) => {
   const target = new ConfigReader()

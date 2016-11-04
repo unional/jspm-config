@@ -1,9 +1,9 @@
-import ava from 'ava'
+import test from 'ava'
 import fixture from 'ava-fixture'
 
 import { readProjectConfig, ConfigError } from './index'
 
-const ftest = fixture(ava, '../fixtures/cases')
+const ftest = fixture(test, '../fixtures/cases')
 
 ftest('readProjectConfig', 'custom-config-empty', (t, casePath) => {
   return readProjectConfig({ cwd: casePath })
@@ -52,10 +52,6 @@ ftest('readyProjectConfig', 'empty', (t, casePath) => {
     })
 })
 
-ftest('readProjectConfig', 'non-jspm-empty', (t, casePath) => {
-  return readProjectConfig({ cwd: casePath })
-    .catch(err => {
-      t.true(err instanceof ConfigError, 'error is instance of ConfigError')
-      t.is(err.message, 'This is not a jspm project', 'error with not jspm project message')
-    })
+ftest('readProjectConfig', 'non-jspm-empty', (t, cwd) => {
+  t.throws(readProjectConfig({ cwd: cwd }), ConfigError, 'This is not a jspm project')
 })

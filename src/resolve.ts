@@ -6,6 +6,7 @@ import {
   JspmPackageJson
 } from './interfaces'
 import { readJspmPackageJson, readJspmConfigs } from './readProjectConfig'
+import { ModuleNotFoundError } from './error'
 
 export function resolveAll(options: Options): Promise<DependencyBranch> {
   return readJspmPackageJson(options)
@@ -33,15 +34,15 @@ export function resolve(moduleName: string, options: Options): Promise<Dependenc
     .then(configs => {
       const dependencyInfo = getDependencyInfo(configs)
       const packageName = dependencyInfo.map[moduleName]
-      if (packageName) {
-        return readMap(
-          { [moduleName]: packageName },
-          dependencyInfo.paths,
-          dependencyInfo.packages)[moduleName]
+
+      if (!packageName) {
+        throw new ModuleNotFoundError(moduleName)
       }
-      else {
-        return {}
-      }
+
+      return readMap(
+        { [moduleName]: packageName },
+        dependencyInfo.paths,
+        dependencyInfo.packages)[moduleName]
     })
 }
 
