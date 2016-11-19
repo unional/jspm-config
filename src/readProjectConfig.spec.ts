@@ -56,7 +56,7 @@ ftest('readProjectConfig', 'non-jspm-empty', (t, cwd) => {
   t.throws(readProjectConfig({ cwd: cwd }), ConfigError, 'This is not a jspm project')
 })
 
-ftest('custom baseURL', 'custom-baseURL', (t, cwd) => {
+ftest('custom baseURL', 'custom-baseurl', (t, cwd) => {
   return readProjectConfig({ cwd })
     .then(projectInfo => {
       t.deepEqual(projectInfo, {
