@@ -52,7 +52,6 @@ export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: 
       packages = JSPM_PACKAGE_JSON_DEFAULT.directories.packages
   }
   const filePath = path.join(options.cwd, packages, '.dependencies.json')
-  console.log(filePath)
   return readJson(filePath).catch<DependenciesJson | void>(err => {
     if (err.code === 'ENOENT') {
       // <jspm_packages>/.dependencies.json does not exist. Returns undefined.
