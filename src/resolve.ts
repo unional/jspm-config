@@ -1,17 +1,22 @@
 import Promise = require('any-promise')
 import extend = require('xtend')
+import path = require('path')
 
 import {
-  Options, DependencyBranch, DependencyTree, DependencyInfo, PackageMap, PathMap, ModuleMap, Configs,
+  Options, DependencyBranch, DependencyTree, DependencyInfo, PathMap, ModuleMap, Configs,
   JspmPackageJson
 } from './interfaces'
-import { readJspmPackageJson, readJspmConfigs } from './readProjectConfig'
+import { readProjectConfig, readJspmConfigs } from './readProjectConfig'
 import { ModuleNotFoundError } from './error'
 
 export function resolveAll(options: Options): Promise<DependencyBranch> {
-  return readJspmPackageJson(options)
-    .then(pjson => {
-      return resolveByPackageJson(pjson, options)
+  return readProjectConfig(options)
+    .then(config => {
+      const dependencyInfo = getDependencyInfo(config.jspmConfigs)
+      return readMap(
+        dependencyInfo.map,
+        config.jspmPackageJson,
+        dependencyInfo)
     })
 }
 
@@ -21,40 +26,38 @@ export function resolveByPackageJson(pjson: JspmPackageJson, options: Options): 
       const dependencyInfo = getDependencyInfo(configs)
       return readMap(
         dependencyInfo.map,
-        dependencyInfo.paths,
-        dependencyInfo.packages)
+        pjson,
+        dependencyInfo)
     })
 }
 
 export function resolve(moduleName: string, options: Options): Promise<DependencyTree> {
-  return readJspmPackageJson(options)
-    .then(pjson => {
-      return readJspmConfigs(pjson, options)
-    })
-    .then(configs => {
-      const dependencyInfo = getDependencyInfo(configs)
+  return readProjectConfig(options)
+    .then(config => {
+      const dependencyInfo = getDependencyInfo(config.jspmConfigs)
       const packageName = dependencyInfo.map[moduleName]
-
       if (!packageName) {
         throw new ModuleNotFoundError(moduleName)
       }
-
-      return readMap(
+      const map = readMap(
         { [moduleName]: packageName },
-        dependencyInfo.paths,
-        dependencyInfo.packages)[moduleName]
+        config.jspmPackageJson,
+        dependencyInfo)
+      return map[moduleName]
     })
 }
 
-function readMap(map: ModuleMap, paths: PathMap, packages: PackageMap) {
+function readMap(map: ModuleMap, pjson: JspmPackageJson, dependencyInfo: DependencyInfo) {
+  const { paths, packages } = dependencyInfo
+  const baseURL = pjson.directories && pjson.directories.baseURL
   const result: DependencyBranch = {}
   for (let moduleName in map) {
     const node: DependencyTree = {} as any
     const packageName = map[moduleName]
-    node.path = getModulePath(packageName, paths)
+    node.path = path.join(baseURL || '', getModulePath(packageName, paths))
     const pkg = packages[packageName]
     if (pkg && pkg.map) {
-      node.map = readMap(pkg.map, paths, packages)
+      node.map = readMap(pkg.map, pjson, dependencyInfo)
     }
     result[moduleName] = node
   }

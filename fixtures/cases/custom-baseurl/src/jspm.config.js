@@ -17,5 +17,6 @@ SystemJS.config({
   ],
   map: {
     "make-error": "npm:make-error@1.2.1",
-  }
+  },
+  packages: {}
 })

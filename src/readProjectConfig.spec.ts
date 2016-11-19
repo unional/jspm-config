@@ -89,7 +89,8 @@ ftest('custom baseURL', 'custom-baseurl', (t, cwd) => {
             ],
             map: {
               'make-error': 'npm:make-error@1.2.1'
-            }
+            },
+            packages: {}
           }
         },
         dependenciesJson: undefined

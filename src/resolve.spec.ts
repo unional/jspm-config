@@ -49,3 +49,15 @@ ftest('resolve', 'base-case', (t, cwd) => {
     t.throws(resolve('not-exist', { cwd }), ModuleNotFoundError, 'not-exist')
   ])
 })
+
+ftest('resolve', 'custom-baseurl', (t, cwd) => {
+  return resolve('make-error', { cwd })
+    .then(actual => {
+      t.deepEqual(
+        actual,
+        {
+          path: 'src/jspm_packages/npm/make-error@1.2.1'
+        }
+      )
+    })
+})
