@@ -36,10 +36,24 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
 }
 
 export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options): Promise<DependenciesJson> {
-  const packages = jspmPackageJson.directories ?
-    jspmPackageJson.directories.packages :
-    JSPM_PACKAGE_JSON_DEFAULT.directories.packages
-  return readJson(path.join(options.cwd, packages, '.dependencies.json')).catch<DependenciesJson | void>(err => {
+  let packages: string
+  if (jspmPackageJson.directories) {
+    if (jspmPackageJson.directories.packages) {
+      packages = jspmPackageJson.directories.packages
+    }
+    else if (jspmPackageJson.directories.baseURL) {
+      packages = path.join(jspmPackageJson.directories.baseURL, JSPM_PACKAGE_JSON_DEFAULT.directories.packages)
+    }
+    else {
+      packages = JSPM_PACKAGE_JSON_DEFAULT.directories.packages
+    }
+  }
+  else {
+      packages = JSPM_PACKAGE_JSON_DEFAULT.directories.packages
+  }
+  const filePath = path.join(options.cwd, packages, '.dependencies.json')
+  console.log(filePath)
+  return readJson(filePath).catch<DependenciesJson | void>(err => {
     if (err.code === 'ENOENT') {
       // <jspm_packages>/.dependencies.json does not exist. Returns undefined.
       return
@@ -57,9 +71,7 @@ export function readJspmPackageJson(options: Options): Promise<JspmPackageJson> 
 }
 
 export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Promise<Configs> {
-  const baseURL = jspmPackageJson.directories ?
-    jspmPackageJson.directories.baseURL :
-    JSPM_PACKAGE_JSON_DEFAULT.directories.baseURL
+  const baseURL = jspmPackageJson.directories && jspmPackageJson.directories.baseURL || JSPM_PACKAGE_JSON_DEFAULT.directories.baseURL
   const configFiles = extend(
     JSPM_PACKAGE_JSON_DEFAULT.configFiles,
     jspmPackageJson.configFiles
@@ -68,7 +80,6 @@ export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Optio
   const configs: Configs = {}
   const reader = new ConfigReader()
   let hasConfig = false
-
   return Promise.resolve()
     .then(() => {
       let filePath = path.resolve(cwd, baseURL, configFiles['jspm'])

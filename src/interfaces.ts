@@ -31,7 +31,7 @@ export interface JspmPackageJson {
   typings?: string,
   browser?: Browser,
   browserTypings?: Browser,
-  directories?: { baseURL: string, packages: string }
+  directories?: { baseURL: string, packages?: string }
   configFiles?: ConfigFiles
   dependencies?: { [index: string]: string }
   peerDependencies?: { [index: string]: string }
@@ -63,7 +63,7 @@ export interface Configs {
 export interface JspmProjectInfo {
   jspmPackageJson: JspmPackageJson
   jspmConfigs: Configs
-  dependenciesJson: DependenciesJson
+  dependenciesJson?: DependenciesJson
 }
 
 export interface PathMap {

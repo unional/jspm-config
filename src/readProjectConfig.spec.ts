@@ -55,3 +55,44 @@ ftest('readyProjectConfig', 'empty', (t, casePath) => {
 ftest('readProjectConfig', 'non-jspm-empty', (t, cwd) => {
   t.throws(readProjectConfig({ cwd: cwd }), ConfigError, 'This is not a jspm project')
 })
+
+ftest('custom baseURL', 'custom-baseurl', (t, cwd) => {
+  return readProjectConfig({ cwd })
+    .then(projectInfo => {
+      t.deepEqual(projectInfo, {
+        jspmPackageJson: {
+          main: 'index.ts',
+          name: 'app',
+          directories: {
+            baseURL: 'src'
+          },
+          dependencies: {
+            'make-error': 'npm:make-error@^1.2.1'
+          }
+        },
+        jspmConfigs: {
+          jspm: {
+            paths: {
+              'github:': 'jspm_packages/github/',
+              'npm:': 'jspm_packages/npm/',
+              'app/': 'src/'
+            },
+            browserConfig: {
+              'baseURL': '.'
+
+            },
+            packageConfigPaths: [
+              'github:*/*.json',
+              'npm:@*/*.json',
+              'npm:*.json'
+
+            ],
+            map: {
+              'make-error': 'npm:make-error@1.2.1'
+            }
+          }
+        },
+        dependenciesJson: undefined
+      })
+    })
+})
