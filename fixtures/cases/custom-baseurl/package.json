@@ -1,0 +1,13 @@
+{
+  "main": "src/main.js",
+  "jspm": {
+    "name": "app",
+    "main": "index.ts",
+    "directories": {
+      "baseURL": "src"
+    },
+    "dependencies": {
+      "make-error": "npm:make-error@^1.2.1"
+    }
+  }
+}
