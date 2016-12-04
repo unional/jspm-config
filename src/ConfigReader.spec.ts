@@ -4,7 +4,7 @@ import fixture from 'ava-fixture'
 
 import { ConfigReader } from './ConfigReader'
 
-const ftest = fixture(test, '../fixtures/cases')
+const ftest = fixture(test, './fixtures/cases')
 
 ftest('ConfigReader', 'quick-empty', (t, cwd) => {
   const target = new ConfigReader()

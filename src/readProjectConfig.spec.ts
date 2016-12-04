@@ -3,7 +3,7 @@ import fixture from 'ava-fixture'
 
 import { readProjectConfig, ConfigError } from './index'
 
-const ftest = fixture(test, '../fixtures/cases')
+const ftest = fixture(test, './fixtures/cases')
 
 ftest('readProjectConfig', 'custom-config-empty', (t, casePath) => {
   return readProjectConfig({ cwd: casePath })
