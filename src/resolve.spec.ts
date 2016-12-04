@@ -3,7 +3,7 @@ import fixture from 'ava-fixture'
 
 import { resolve, resolveAll, DependencyBranch, DependencyTree, ModuleNotFoundError } from './index'
 
-const ftest = fixture(test, '../fixtures/cases')
+const ftest = fixture(test, './fixtures/cases')
 ftest('resolveAll', 'custom-config-empty', (t, casePath) => {
   return resolveAll({ cwd: casePath }).then(actual => {
     t.deepEqual(actual, {}, 'should returns {} as there are no dependencies')
