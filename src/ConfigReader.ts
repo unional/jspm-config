@@ -21,7 +21,7 @@ export class ConfigReader {
       return Promise.resolve()
     }
     else {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve, _reject) => {
         this.child.on('message', (config: any) => {
           resolve(config)
         })

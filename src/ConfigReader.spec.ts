@@ -6,9 +6,9 @@ import { ConfigReader } from './ConfigReader'
 
 const ftest = fixture(test, './fixtures/cases')
 
-ftest('ConfigReader', 'quick-empty', (t, cwd) => {
+ftest('ConfigReader', 'quick-empty', (t, d) => {
   const target = new ConfigReader()
-  return target.read(resolve(cwd, 'jspm.config.js'))
+  return target.read(resolve(d.casePath, 'jspm.config.js'))
     .then(config => {
       t.deepEqual(config, {
         browserConfig: { baseURL: '/' },

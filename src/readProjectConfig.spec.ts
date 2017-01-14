@@ -5,8 +5,8 @@ import { readProjectConfig, ConfigError } from './index'
 
 const ftest = fixture(test, './fixtures/cases')
 
-ftest('readProjectConfig', 'custom-config-empty', (t, casePath) => {
-  return readProjectConfig({ cwd: casePath })
+ftest('readProjectConfig', 'custom-config-empty', (t, d) => {
+  return readProjectConfig({ cwd: d.casePath })
     .then(projectInfo => {
       t.deepEqual(
         projectInfo,
@@ -45,19 +45,19 @@ ftest('readProjectConfig', 'custom-config-empty', (t, casePath) => {
     })
 })
 
-ftest('readyProjectConfig', 'empty', (t, casePath) => {
-  return readProjectConfig({ cwd: casePath })
+ftest('readyProjectConfig', 'empty', (t, d) => {
+  return readProjectConfig({ cwd: d.casePath })
     .then(projectInfo => {
       t.deepEqual(projectInfo, undefined, 'should return undefined when the folder is empty')
     })
 })
 
-ftest('readProjectConfig', 'non-jspm-empty', (t, cwd) => {
-  t.throws(readProjectConfig({ cwd: cwd }), ConfigError, 'This is not a jspm project')
+ftest('readProjectConfig', 'non-jspm-empty', (t, d) => {
+  t.throws(readProjectConfig({ cwd: d.casePath }), ConfigError, 'This is not a jspm project')
 })
 
-ftest('custom baseURL', 'custom-baseurl', (t, cwd) => {
-  return readProjectConfig({ cwd })
+ftest('custom baseURL', 'custom-baseurl', (t, d) => {
+  return readProjectConfig({ cwd: d.casePath })
     .then(projectInfo => {
       t.deepEqual(projectInfo, {
         jspmPackageJson: {
