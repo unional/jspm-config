@@ -1,5 +1,5 @@
 'use strict'
-import * as extend from 'extend'
+import extend = require('xtend')
 
 process.on('message', (filePath: string) => {
   let g: any = global
