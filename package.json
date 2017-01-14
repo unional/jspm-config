@@ -1,6 +1,6 @@
 {
   "name": "jspm-config",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Read jspm config and such",
   "main": "dist/es5/index.js",
   "module": "dist/es2015/index.js",
