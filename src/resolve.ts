@@ -1,6 +1,6 @@
-import Promise = require('any-promise')
-import extend = require('xtend')
-import path = require('path')
+import * as Promise from 'any-promise'
+import * as extend from 'xtend'
+import * as path from 'path'
 
 import {
   Options, DependencyBranch, DependencyTree, DependencyInfo, PathMap, ModuleMap, Configs,

@@ -1,6 +1,6 @@
 import * as fs from 'graceful-fs'
-import Promise = require('any-promise')
-import thenify = require('thenify')
+import * as Promise from 'any-promise'
+import * as thenify from 'thenify'
 import stripBom = require('strip-bom')
 import parse = require('parse-json')
 import Throat = require('throat')
