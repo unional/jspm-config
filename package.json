@@ -73,7 +73,7 @@
     "@types/strip-bom": "^3.0.0",
     "@types/xtend": "^4.0.2",
     "aurelia-logging": "^1.2.0",
-    "aurelia-logging-color": "^0.4.10",
+    "aurelia-logging-color": "^0.5.0",
     "aurelia-polyfills": "^1.1.1",
     "ava": "^0.18.1",
     "ava-fixture": "^0.8.0",
