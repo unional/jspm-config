@@ -61,3 +61,12 @@ ftest('resolve', 'custom-baseurl', (t, d) => {
       )
     })
 })
+
+ftest('resolving scoped package', 'scoped-package', (t, cwd) => {
+  return resolve('@extjs/reactor', { cwd })
+  .then(actual => {
+    t.is(actual.path, 'jspm_packages/npm/@extjs/reactor@0.2.3')
+    t.not(actual.map, {})
+    t.not(actual.map, undefined)
+  })
+})
