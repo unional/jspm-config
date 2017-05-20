@@ -20,6 +20,8 @@ export function parseJson(contents: string, path: string, allowEmpty: boolean): 
   return parse(contents, undefined, path)
 }
 
+export const readFile: ReadFileOp = throat(10, thenify<string, string, string>(fs.readFile))
+
 /**
  * Read JSON from a path.
  */
@@ -29,4 +31,3 @@ export function readJson(path: string, allowEmpty: boolean = false): Promise<any
     .then(contents => parseJson(contents, path, allowEmpty))
 }
 
-export const readFile: ReadFileOp = throat(10, thenify<string, string, string>(fs.readFile))

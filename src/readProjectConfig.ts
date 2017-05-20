@@ -49,7 +49,7 @@ export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: 
     }
   }
   else {
-      packages = JSPM_PACKAGE_JSON_DEFAULT.directories.packages
+    packages = JSPM_PACKAGE_JSON_DEFAULT.directories.packages
   }
   const filePath = path.join(options.cwd, packages, '.dependencies.json')
   return readJson(filePath).catch<DependenciesJson | void>(err => {

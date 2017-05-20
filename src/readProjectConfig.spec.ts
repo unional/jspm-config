@@ -53,7 +53,7 @@ ftest('readyProjectConfig', 'empty', (t, d) => {
 })
 
 ftest('readProjectConfig', 'non-jspm-empty', (t, d) => {
-  t.throws(readProjectConfig({ cwd: d.casePath }), ConfigError, 'This is not a jspm project')
+  return t.throws(readProjectConfig({ cwd: d.casePath }), ConfigError, 'This is not a jspm project')
 })
 
 ftest('custom baseURL', 'custom-baseurl', (t, d) => {
