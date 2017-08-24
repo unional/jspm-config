@@ -68,7 +68,7 @@
     ]
   },
   "devDependencies": {
-    "@types/graceful-fs": "^2.0.29",
+    "@types/graceful-fs": "^4.1.0",
     "@types/node": "^8.0.0",
     "@types/strip-bom": "^3.0.0",
     "@types/xtend": "^4.0.2",
