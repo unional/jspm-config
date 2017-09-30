@@ -9,7 +9,7 @@ import { JSPM_PACKAGE_JSON_DEFAULT } from './constants'
 import { ConfigError } from './error'
 import { ConfigReader } from './ConfigReader'
 
-export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
+export function readProjectConfig(options: Options): Promise<JspmProjectInfo | undefined> {
   return readJspmPackageJson(options)
     .then((jspmPackageJson) => {
       return Promise.all(
@@ -25,17 +25,18 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
           }
         })
     })
-    .catch<JspmProjectInfo | void>(err => {
+    .catch<JspmProjectInfo | undefined>(err => {
       if (err.code === 'ENOENT') {
         // package.json does not exist. Returns undefined.
-        return
+        return undefined
       }
 
       throw err
     })
 }
 
-export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options): Promise<DependenciesJson> {
+export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options): Promise<DependenciesJson
+  | undefined> {
   let packages: string
   if (jspmPackageJson.directories) {
     if (jspmPackageJson.directories.packages) {
@@ -52,10 +53,10 @@ export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: 
     packages = JSPM_PACKAGE_JSON_DEFAULT.directories.packages
   }
   const filePath = path.join(options.cwd, packages, '.dependencies.json')
-  return readJson(filePath).catch<DependenciesJson | void>(err => {
+  return readJson(filePath).catch<DependenciesJson | undefined>(err => {
     if (err.code === 'ENOENT') {
       // <jspm_packages>/.dependencies.json does not exist. Returns undefined.
-      return
+      return undefined
     }
 
     throw err
@@ -69,7 +70,7 @@ export function readJspmPackageJson(options: Options): Promise<JspmPackageJson> 
     })
 }
 
-export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Promise<Configs> {
+export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Promise<Configs | undefined> {
   const baseURL = jspmPackageJson.directories && jspmPackageJson.directories.baseURL || JSPM_PACKAGE_JSON_DEFAULT.directories.baseURL
   const configFiles = extend(
     JSPM_PACKAGE_JSON_DEFAULT.configFiles,
