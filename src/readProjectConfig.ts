@@ -9,7 +9,7 @@ import { JSPM_PACKAGE_JSON_DEFAULT } from './constants'
 import { ConfigError } from './error'
 import { ConfigReader } from './ConfigReader'
 
-export function readProjectConfig(options: Options): Promise<JspmProjectInfo | undefined> {
+export function readProjectConfig(options: Options): Promise<JspmProjectInfo | void> {
   return readJspmPackageJson(options)
     .then((jspmPackageJson) => {
       return Promise.all(
@@ -25,10 +25,10 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo | u
           }
         })
     })
-    .catch<JspmProjectInfo | undefined>(err => {
+    .catch<JspmProjectInfo | void>(err => {
       if (err.code === 'ENOENT') {
         // package.json does not exist. Returns undefined.
-        return undefined
+        return
       }
 
       throw err
@@ -36,7 +36,7 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo | u
 }
 
 export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options): Promise<DependenciesJson
-  | undefined> {
+  | void> {
   let packages: string
   if (jspmPackageJson.directories) {
     if (jspmPackageJson.directories.packages) {
@@ -53,10 +53,10 @@ export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: 
     packages = JSPM_PACKAGE_JSON_DEFAULT.directories.packages
   }
   const filePath = path.join(options.cwd, packages, '.dependencies.json')
-  return readJson(filePath).catch<DependenciesJson | undefined>(err => {
+  return readJson(filePath).catch<DependenciesJson | void>(err => {
     if (err.code === 'ENOENT') {
       // <jspm_packages>/.dependencies.json does not exist. Returns undefined.
-      return undefined
+      return
     }
 
     throw err
