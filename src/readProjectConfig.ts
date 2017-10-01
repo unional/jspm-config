@@ -9,7 +9,7 @@ import { JSPM_PACKAGE_JSON_DEFAULT } from './constants'
 import { ConfigError } from './error'
 import { ConfigReader } from './ConfigReader'
 
-export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
+export function readProjectConfig(options: Options): Promise<JspmProjectInfo | void> {
   return readJspmPackageJson(options)
     .then((jspmPackageJson) => {
       return Promise.all(
@@ -35,7 +35,8 @@ export function readProjectConfig(options: Options): Promise<JspmProjectInfo> {
     })
 }
 
-export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options): Promise<DependenciesJson> {
+export function readDependenciesJson(jspmPackageJson: JspmPackageJson, options: Options): Promise<DependenciesJson
+  | void> {
   let packages: string
   if (jspmPackageJson.directories) {
     if (jspmPackageJson.directories.packages) {
@@ -69,7 +70,7 @@ export function readJspmPackageJson(options: Options): Promise<JspmPackageJson> 
     })
 }
 
-export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Promise<Configs> {
+export function readJspmConfigs(jspmPackageJson: JspmPackageJson, options: Options): Promise<Configs | undefined> {
   const baseURL = jspmPackageJson.directories && jspmPackageJson.directories.baseURL || JSPM_PACKAGE_JSON_DEFAULT.directories.baseURL
   const configFiles = extend(
     JSPM_PACKAGE_JSON_DEFAULT.configFiles,

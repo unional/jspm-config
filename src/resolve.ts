@@ -12,6 +12,8 @@ import { ModuleNotFoundError } from './error'
 export function resolveAll(options: Options): Promise<DependencyBranch> {
   return readProjectConfig(options)
     .then(config => {
+      if (!config)
+        return {}
       const dependencyInfo = getDependencyInfo(config.jspmConfigs)
       return readMap(
         dependencyInfo.map,
@@ -23,6 +25,8 @@ export function resolveAll(options: Options): Promise<DependencyBranch> {
 export function resolveByPackageJson(pjson: JspmPackageJson, options: Options): Promise<DependencyBranch> {
   return readJspmConfigs(pjson, options)
     .then(configs => {
+      if (!configs)
+        return {}
       const dependencyInfo = getDependencyInfo(configs)
       return readMap(
         dependencyInfo.map,
@@ -31,9 +35,11 @@ export function resolveByPackageJson(pjson: JspmPackageJson, options: Options): 
     })
 }
 
-export function resolve(moduleName: string, options: Options): Promise<DependencyTree> {
+export function resolve(moduleName: string, options: Options): Promise<DependencyTree | undefined> {
   return readProjectConfig(options)
     .then(config => {
+      if (!config)
+        return undefined
       const dependencyInfo = getDependencyInfo(config.jspmConfigs)
       const packageName = dependencyInfo.map[moduleName]
       if (!packageName) {
