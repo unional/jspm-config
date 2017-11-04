@@ -99,7 +99,7 @@
     "graceful-fs": "^4.1.11",
     "make-error-cause": "^1.2.2",
     "object.pick": "^1.3.0",
-    "parse-json": "^3.0.0",
+    "parse-json": "^4.0.0",
     "strip-bom": "^3.0.0",
     "thenify": "^3.3.0",
     "throat": "^4.1.0",
