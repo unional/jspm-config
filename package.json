@@ -89,7 +89,7 @@
     "rollup-plugin-uglify": "^3.0.0",
     "source-map-loader": "^0.2.2",
     "tslint": "^5.7.0",
-    "tslint-config-unional": "^0.8.0",
+    "tslint-config-unional": "^0.9.0",
     "typescript": "^2.5.3",
     "typings": "^2.1.1",
     "webpack": "^3.6.0"
