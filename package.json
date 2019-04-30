@@ -75,7 +75,7 @@
     "dependency-check": "^3.3.0",
     "eslint": "^5.11.1",
     "eslint-plugin-harmony": "^1.0.4",
-    "jspm": "^0.17.0-beta.49",
+    "jspm": "^2.0.0-beta.2",
     "nyc": "^13.1.0",
     "param-case": "^2.1.1",
     "pascal-case": "^2.0.1",
