@@ -76,7 +76,7 @@
     "eslint": "^5.11.1",
     "eslint-plugin-harmony": "^1.0.4",
     "jspm": "^2.0.0-beta.2",
-    "nyc": "^13.1.0",
+    "nyc": "^14.1.0",
     "param-case": "^2.1.1",
     "pascal-case": "^2.0.1",
     "rimraf": "^2.6.2",
