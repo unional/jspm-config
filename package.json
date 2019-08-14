@@ -79,7 +79,7 @@
     "nyc": "^13.1.0",
     "param-case": "^2.1.1",
     "pascal-case": "^2.0.1",
-    "rimraf": "^2.6.2",
+    "rimraf": "^3.0.0",
     "rollup": "^1.0.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-builtins": "^2.1.2",
