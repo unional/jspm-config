@@ -72,7 +72,7 @@
     "ava": "^0.25.0",
     "ava-fixture": "^0.11.0",
     "core-js": "^2.6.1",
-    "dependency-check": "^3.3.0",
+    "dependency-check": "^4.0.0",
     "eslint": "^5.11.1",
     "eslint-plugin-harmony": "^2.0.0",
     "jspm": "^2.0.0-beta.2",
