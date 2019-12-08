@@ -71,7 +71,7 @@
     "aurelia-logging": "^1.5.0",
     "ava": "^0.25.0",
     "ava-fixture": "^0.11.0",
-    "core-js": "^2.6.1",
+    "core-js": "^3.4.8",
     "dependency-check": "^3.3.0",
     "eslint": "^5.11.1",
     "eslint-plugin-harmony": "^2.0.0",
