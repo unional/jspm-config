@@ -69,7 +69,7 @@
     "@types/strip-bom": "^3.0.0",
     "@types/xtend": "^4.0.2",
     "aurelia-logging": "^1.5.0",
-    "ava": "^0.25.0",
+    "ava": "^3.8.1",
     "ava-fixture": "^0.11.0",
     "core-js": "^2.6.1",
     "dependency-check": "^3.3.0",
