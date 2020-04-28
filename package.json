@@ -96,7 +96,7 @@
   },
   "dependencies": {
     "any-promise": "^1.3.0",
-    "graceful-fs": "^4.1.15",
+    "graceful-fs": "^4.2.4",
     "make-error-cause": "^2.2.0",
     "object.pick": "^1.3.0",
     "parse-json": "^4.0.0",
