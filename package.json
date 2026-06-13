@@ -102,7 +102,7 @@
     "parse-json": "^4.0.0",
     "strip-bom": "^3.0.0",
     "thenify": "^3.3.0",
-    "throat": "^4.1.0",
+    "throat": "^5.0.0",
     "xtend": "^4.0.1"
   }
 }
